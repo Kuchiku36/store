@@ -16,7 +16,11 @@ class CategoryFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+        // ont met le faker word dans une variable pour l'insiré directement comme nom d'image
+        $name = fake()->words(7,true) ;
+                return [
+            'name'=>fake()->words(7,true) ,
+            'image'=>fake()->imageUrl(640,480, $name,true) ,
             //
         ];
     }
