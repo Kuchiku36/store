@@ -2,16 +2,22 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Models\Product;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Product;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ProductResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ProductResource\RelationManagers;
+use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Select;
+use PhpParser\Node\Stmt\Label;
+use Filament\Tables\Columns\ImageColumn;
 
 class ProductResource extends Resource
 {
@@ -23,11 +29,13 @@ class ProductResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('nom'),
-                Forms\Components\TextInput::make('description'),
-                Forms\Components\TextInput::make('price'),
-                Forms\Components\TextInput::make('category_id'),
-
+                TextInput::make('nom')->label('Nom')->required(),
+                TextInput::make('price')->Label('Prix')->required(),
+                Select::make('category_id')
+                ->relationship(name:'category', titleAttribute:'name')
+                ->required(),
+                //champ select appartir de la table category
+                FileUpload::make('images')->multiple()
                 //
             ]);
     }
@@ -36,15 +44,25 @@ class ProductResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('nom'),
-                Tables\Columns\TextColumn::make('description'),
-                Tables\Columns\TextColumn::make('price'),
-                Tables\Columns\TextColumn::make('category_id'),
+                Tables\Columns\TextColumn::make('category_id')->sortable()->searchable(),
+                ImageColumn::make('images')
+                                    ->circular()
+                                    ->stacked()
+                                    ->limit(3),
+                Tables\Columns\TextColumn::make('nom')
+                ->description(fn (Product $record): string=>substr($record->description, 0 , 20) )
+                ->label('Nom')
+                ->searchable()
+                ->sortable(),
+                // formaté la taille de la description affiché 
+                Tables\Columns\TextColumn::make('price')->sortable()->searchable(), 
 
                 //
             ])
             ->filters([
-                //
+                SelectFilter::make('Category_id')
+                                    ->relationship('category', 'name'),
+                //trie par categorie en utilisant la relation
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

@@ -3,12 +3,15 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class User extends Authenticatable
+//gestion des implémentation user
+class User extends Authenticatable implements FilamentUser
 {
     use HasFactory, Notifiable;
 
@@ -49,8 +52,11 @@ class User extends Authenticatable
 
     public function canAccessPanel(Panel $panel): bool 
     {
-    if ($panel->getId() === 'admin') {
-        return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
+    if ($this->role === 'admin') {
+        return true;
+    }else{
+        
+        return false;
     }
 
     return true;

@@ -16,7 +16,9 @@ class Product extends Model
                           'price',
                           'images'] ;
 
-    
+                          protected $casts = [
+                            'images' => 'array',
+                        ];
     use HasFactory;
 
 

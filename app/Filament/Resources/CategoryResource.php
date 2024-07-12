@@ -24,6 +24,7 @@ class CategoryResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name'),
+                Forms\Components\FileUpload::make('image'),
 
                 //
             ]);
@@ -33,7 +34,10 @@ class CategoryResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextInputColumn::make('name'),
+                Tables\Columns\ImageColumn::make('image')
+    ->circular()
+    ->stacked()
 
                 //
             ])
