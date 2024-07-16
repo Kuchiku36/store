@@ -19,9 +19,18 @@ class ProductController extends Controller
     }
 
     //detail: show product detail
-    public function show()
-    {
-        return view('product.show');
+    public  function show(Product $product )  {
+
+        //,,,
+
+        $products = Product::where('category_id', $product->category_id  )
+                            ->inRandomOrder()
+                            ->limit(5)
+                            ->get();
+
+       
+
+        return view('product.show',compact('product' ,'products'));
     }
     
     //show  last product by category
@@ -29,5 +38,6 @@ class ProductController extends Controller
     {
         return view('product.products');
     }
+    
     //
 }
