@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Favori;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,4 +32,15 @@ public function Category(): BelongsTo
 {
     return $this->belongsTo(Category::class);
 }
+
+public function favoris(): HasMany
+    {
+        return $this->hasMany(Favori::class);
+    }
+
+public function isFavori()
+{
+    return $this->hasMany(Favori::class);    
+}
+
 }

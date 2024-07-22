@@ -1,12 +1,14 @@
 @extends('layouts.store')
 
 @section('content')
-<ul class="bg-red-300">
-    @foreach ($categories as $rowCategory)
+<div >
+    <ul class="category">
+        @foreach ($categories as $rowCategory)
         <li>
             <a href="">{{$rowCategory->name}}</a>
         </li>
-    @endforeach
-</ul>
-<x-product-card :products="$products"/>
+        @endforeach
+    </ul>
+    <x-product-card :products="$products"/>
+</div>
 @endsection

@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+header {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #ff7e5f, #fdbb2d);
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.category {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(to right, #ff7e5f, #fdbb2d);
+        color: white;
+        justify-content: center; /* Centrer le texte */
+        padding: 50px;
+        display: flex;
+        gap: 15px;
+    
+}
