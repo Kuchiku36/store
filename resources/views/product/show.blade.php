@@ -2,7 +2,6 @@
 
 @section('content')
 
-{{ $product->isFavori->where('user_id', auth()->user()->id)}}
 <div class="container">
     <div class="flex w-full transform text-left text-base transition md:my-8 md:max-w-2xl md:px-4 lg:max-w-4xl">
         <div class="relative flex w-full items-center overflow-hidden bg-white px-4 pb-8 pt-14 shadow-2xl sm:px-6 sm:pt-8 md:p-6 lg:p-8">
@@ -60,7 +59,8 @@
 
                     <a href="{{route('panier.ajouter', $product)}}" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">Add to bag</a>
                     
-                    
+                @auth
+
                     @if (count($product->isFavori->where('user_id', auth()->user()->id) )>0 )
                     
                     <a href="{{route('favori.edit', $product)}}" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">enlever des favori</a>
@@ -68,6 +68,9 @@
                     <a href="{{route('favori.edit', $product)}}" class="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">favori</a>
                     
                     @endif
+
+                @auth
+
                     </section>
                 </div>
             </div>

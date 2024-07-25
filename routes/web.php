@@ -39,6 +39,11 @@ Route::get('/favori/edit/{product}', [FavoriController::class, 'edit'])->name('f
 //gestion de la commande
 Route::get('/commande', [CommandeController::class, 'index'])->name('commande.lister');
 Route::get('/commande/create', [CommandeController::class, 'create'])->name('commande.create');
+Route::get('/commande/success', [CommandeController::class, 'success'])->name('commande.success');
+
 });
+
+Route::post('/commande/webhook', [CommandeController::class, 'webhook'])->name('commande.webhook');
+
 
 require __DIR__.'/auth.php';
